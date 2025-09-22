@@ -70,7 +70,7 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-6 md:p-10">
+        <main class="flex-1 p-6 md:p-10 pb-20"> <!-- Footer와 겹치지 않도록 하단 여백 추가 -->
             <!-- Welcome Section -->
             <section id="welcome" class="content-section">
                 <div class="bg-white p-8 rounded-xl shadow-2xl">
@@ -381,18 +381,16 @@
         </main>
     </div>
 
+    <footer class="fixed bottom-0 right-0 p-4 text-sm text-gray-600">
+        copyright by 왕쌤
+    </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const menuItems = document.querySelectorAll('.menu-item');
             const contentSections = document.querySelectorAll('.content-section');
-            const videos = document.querySelectorAll('video');
 
             function showSection(targetId) {
-                // 페이지를 벗어나는 비디오 정지
-                videos.forEach(video => {
-                    video.pause();
-                });
-
                 // 모든 컨텐츠 섹션 숨기기
                 contentSections.forEach(section => {
                     section.classList.add('hidden');
