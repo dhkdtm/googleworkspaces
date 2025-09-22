@@ -385,8 +385,14 @@
         document.addEventListener('DOMContentLoaded', function() {
             const menuItems = document.querySelectorAll('.menu-item');
             const contentSections = document.querySelectorAll('.content-section');
+            const videos = document.querySelectorAll('video');
 
             function showSection(targetId) {
+                // 페이지를 벗어나는 비디오 정지
+                videos.forEach(video => {
+                    video.pause();
+                });
+
                 // 모든 컨텐츠 섹션 숨기기
                 contentSections.forEach(section => {
                     section.classList.add('hidden');
