@@ -624,27 +624,37 @@
             const menuItems = document.querySelectorAll('.menu-item');
             const contentSections = document.querySelectorAll('.content-section');
 
-function showSection(targetId) {
-    // 재생 중인 모든 영상 멈추기
-    document.querySelectorAll('video').forEach(video => {
-        if (!video.paused) {
-            video.pause();
-        }
-    });
-    // 모든 컨텐츠 섹션 숨기기
-    contentSections.forEach(section => {
-        section.classList.add('hidden');
-    });
-    // 목표 컨텐츠 섹션 보이기
-    const targetSection = document.getElementById(targetId);
-    if (targetSection) {
-        targetSection.classList.remove('hidden');
-    }
-}
+            // 페이지 내 모든 영상을 멈추고 처음으로 되감기
+            function stopAllVideos() {
+                document.querySelectorAll('video').forEach(function(video) {
+                    try {
+                        video.pause();
+                        video.currentTime = 0;
+                    } catch (err) {
+                        /* 일부 영상에서 오류가 나도 나머지는 계속 멈춤 처리 */
+                    }
+                });
+            }
+
+            function showSection(targetId) {
+                // 섹션 전환 전, 재생 중인 영상 모두 정지
+                stopAllVideos();
+                // 모든 컨텐츠 섹션 숨기기
+                contentSections.forEach(function(section) {
+                    section.classList.add('hidden');
+                });
+                // 목표 컨텐츠 섹션 보이기
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.remove('hidden');
+                }
+            }
 
             function setActiveMenu(activeItem) {
                 // 모든 메뉴에서 active 클래스 제거
-                menuItems.forEach(el => el.classList.remove('active-menu'));
+                menuItems.forEach(function(el) {
+                    el.classList.remove('active-menu');
+                });
                 // 클릭된 메뉴에 active 클래스 추가
                 if (activeItem) {
                     activeItem.classList.add('active-menu');
@@ -655,7 +665,7 @@ function showSection(targetId) {
             showSection('org-settings');
             setActiveMenu(document.querySelector('a[href="#org-settings"]'));
 
-            menuItems.forEach(item => {
+            menuItems.forEach(function(item) {
                 item.addEventListener('click', function(e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href').substring(1);
