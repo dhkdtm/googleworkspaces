@@ -624,17 +624,23 @@
             const menuItems = document.querySelectorAll('.menu-item');
             const contentSections = document.querySelectorAll('.content-section');
 
-            function showSection(targetId) {
-                // 모든 컨텐츠 섹션 숨기기
-                contentSections.forEach(section => {
-                    section.classList.add('hidden');
-                });
-                // 목표 컨텐츠 섹션 보이기
-                const targetSection = document.getElementById(targetId);
-                if (targetSection) {
-                    targetSection.classList.remove('hidden');
-                }
-            }
+function showSection(targetId) {
+    // 재생 중인 모든 영상 멈추기
+    document.querySelectorAll('video').forEach(video => {
+        if (!video.paused) {
+            video.pause();
+        }
+    });
+    // 모든 컨텐츠 섹션 숨기기
+    contentSections.forEach(section => {
+        section.classList.add('hidden');
+    });
+    // 목표 컨텐츠 섹션 보이기
+    const targetSection = document.getElementById(targetId);
+    if (targetSection) {
+        targetSection.classList.remove('hidden');
+    }
+}
 
             function setActiveMenu(activeItem) {
                 // 모든 메뉴에서 active 클래스 제거
